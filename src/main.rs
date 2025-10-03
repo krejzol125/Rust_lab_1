@@ -18,7 +18,7 @@ fn main() {
                 num
             },
         };
-        x = x + rand::thread_rng().gen_range(1..=5);
+        x += rand::thread_rng().gen_range(1..=5);
         println!("{}", x);
         
         let tab = tabulacja(x);
@@ -31,6 +31,8 @@ fn main() {
     } else {
         println!("Użytkownik zakończył program")
     }
+    let tp = fun (20);
+    println!("{} : {}", tp.0, tp.1)
 }
 
 fn tabulacja(x:u64) -> [u64; 10] {
@@ -41,7 +43,7 @@ fn tabulacja(x:u64) -> [u64; 10] {
         curr = x * curr;
         tab[i] = curr;
     }
-    return tab;    
+    tab    
 }
 
 fn check_coltez(tab: [u64; 10]) -> [bool; 10] {
@@ -62,7 +64,7 @@ fn check_coltez(tab: [u64; 10]) -> [bool; 10] {
         }
         result[i] = false;
     }
-    return result;
+    result
 }
 
 fn save_to_file(tab: [u64; 10], cort: [bool; 10]) {
@@ -71,4 +73,34 @@ fn save_to_file(tab: [u64; 10], cort: [bool; 10]) {
         let line = format!("{} {}\n", tab[i], cort[i]);
         file.write_all(line.as_bytes()).expect("Unable to write data");
     }
+}
+
+fn fun(x: u64) -> (u64, bool) {
+    let mut i = 1;
+    let mut count = 0;
+    let mut res = false;
+    'label: loop{
+        i = i + 1;
+        let mut j = i;
+        while j > 0
+        {
+            print!("#");
+            j = j-1;
+            if 1 == rand::thread_rng().gen_range(1..=100)
+            {
+                println!(" --- AWARIA --- ");
+                break 'label;
+            }
+            else {
+                count = count + 1;
+            }
+        }
+        if i == x {
+            res = true;
+            break;
+
+        }
+        println!("");
+    }
+    (count, res)
 }
