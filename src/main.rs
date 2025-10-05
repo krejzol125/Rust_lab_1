@@ -38,10 +38,9 @@ fn main() {
 fn tabulacja(x:u64) -> [u64; 10] {
     let mut tab: [u64; 10] = [0; 10];
     let mut curr = 1;
-    for i in 0..=9
-    {
-        curr = x * curr;
-        tab[i] = curr;
+    for item in &mut tab {
+        curr *= x;
+        *item = curr;
     }
     tab    
 }
@@ -52,8 +51,8 @@ fn check_coltez(tab: [u64; 10]) -> [bool; 10] {
     {
         let mut curr = tab[i];
         for _ in 1..=100 {
-            if curr % 2 == 0 {
-                curr = curr / 2;
+            if curr.is_multiple_of(2) {
+                curr /= 2;
             } else {
                 curr = 3 * curr + 1;
             }
@@ -80,19 +79,19 @@ fn fun(x: u64) -> (u64, bool) {
     let mut count = 0;
     let mut res = false;
     'label: loop{
-        i = i + 1;
+        i += 1;
         let mut j = i;
         while j > 0
         {
             print!("#");
-            j = j-1;
+            j -= 1;
             if 1 == rand::thread_rng().gen_range(1..=100)
             {
                 println!(" --- AWARIA --- ");
                 break 'label;
             }
             else {
-                count = count + 1;
+                count += 1;
             }
         }
         if i == x {
@@ -100,7 +99,7 @@ fn fun(x: u64) -> (u64, bool) {
             break;
 
         }
-        println!("");
+        println!();
     }
     (count, res)
 }
